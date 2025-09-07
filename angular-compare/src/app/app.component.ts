@@ -40,8 +40,8 @@ export class AppComponent {
     return this.weatherRxJSService.weatherData$;
   });
 
-  loading = computed(() => 
-    this.appState.dataFetchingMethod() === 'rxjs' 
+  loading = computed(() =>
+    this.appState.dataFetchingMethod() === 'rxjs'
       ? false // Loading handled via async pipe in template
       : this.weatherResourceService.loading()
   );

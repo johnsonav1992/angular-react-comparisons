@@ -12,7 +12,7 @@ export class AppStateService {
   private weatherService = inject(WeatherService);
   private weatherResourceService = inject(WeatherResourceService);
   private weatherRxJSService = inject(WeatherRxJSService);
-  
+
   private _dataFetchingMethod = signal<DataFetchingMethod>('rxjs');
   private _selectedLocation = signal<{ lat: number; lon: number } | null>(null);
 

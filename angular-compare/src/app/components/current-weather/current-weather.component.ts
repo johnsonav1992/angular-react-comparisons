@@ -11,7 +11,9 @@ import { AppStateService } from '../../services/app-state.service';
       <div class="current-weather">
         <h2 class="location-name">{{ location() }}</h2>
         <div class="current-temp">
-          {{ currentWeather()!.temperature }}°{{ currentWeather()!.temperatureUnit }}
+          {{ currentWeather()!.temperature }}°{{
+            currentWeather()!.temperatureUnit
+          }}
         </div>
         <div class="weather-description">
           {{ currentWeather()!.shortForecast }}
@@ -20,7 +22,8 @@ import { AppStateService } from '../../services/app-state.service';
           <div class="detail-item">
             <div class="detail-label">Wind</div>
             <div class="detail-value">
-              {{ currentWeather()!.windSpeed }} {{ currentWeather()!.windDirection }}
+              {{ currentWeather()!.windSpeed }}
+              {{ currentWeather()!.windDirection }}
             </div>
           </div>
           @if (currentWeather()!.probabilityOfPrecipitation?.value !== null) {

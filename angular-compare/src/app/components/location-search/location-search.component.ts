@@ -42,14 +42,14 @@ export class LocationSearchComponent {
   appState = inject(AppStateService);
   searchQuery = signal('32.7767,-96.7970');
 
-  loading = computed(() => 
-    this.appState.dataFetchingMethod() === 'rxjs' 
+  loading = computed(() =>
+    this.appState.dataFetchingMethod() === 'rxjs'
       ? false // RxJS service uses observables, loading handled in components
       : this.weatherResourceService.loading()
   );
 
-  error = computed(() => 
-    this.appState.dataFetchingMethod() === 'rxjs' 
+  error = computed(() =>
+    this.appState.dataFetchingMethod() === 'rxjs'
       ? null // RxJS service uses observables, error handled in components
       : this.weatherResourceService.error()
   );
@@ -68,7 +68,7 @@ export class LocationSearchComponent {
       this.weatherService.clearAll();
       this.weatherResourceService.clearAll();
       this.weatherRxJSService.clearAll();
-      
+
       if (this.appState.dataFetchingMethod() === 'rxjs') {
         this.weatherRxJSService.searchWeather(coords[0], coords[1]);
       } else {

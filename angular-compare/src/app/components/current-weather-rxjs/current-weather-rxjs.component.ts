@@ -12,7 +12,9 @@ import { WeatherRxJSService } from '../../services/weather-rxjs.service';
         <div class="current-weather">
           <h2 class="location-name">{{ weather.location }}</h2>
           <div class="current-temp">
-            {{ weather.currentWeather.temperature }}°{{ weather.currentWeather.temperatureUnit }}
+            {{ weather.currentWeather.temperature }}°{{
+              weather.currentWeather.temperatureUnit
+            }}
           </div>
           <div class="weather-description">
             {{ weather.currentWeather.shortForecast }}
@@ -21,14 +23,19 @@ import { WeatherRxJSService } from '../../services/weather-rxjs.service';
             <div class="detail-item">
               <div class="detail-label">Wind</div>
               <div class="detail-value">
-                {{ weather.currentWeather.windSpeed }} {{ weather.currentWeather.windDirection }}
+                {{ weather.currentWeather.windSpeed }}
+                {{ weather.currentWeather.windDirection }}
               </div>
             </div>
-            @if (weather.currentWeather.probabilityOfPrecipitation?.value !== null) {
+            @if (
+              weather.currentWeather.probabilityOfPrecipitation?.value !== null
+            ) {
               <div class="detail-item">
                 <div class="detail-label">Rain Chance</div>
                 <div class="detail-value">
-                  {{ weather.currentWeather.probabilityOfPrecipitation!.value }}%
+                  {{
+                    weather.currentWeather.probabilityOfPrecipitation!.value
+                  }}%
                 </div>
               </div>
             }

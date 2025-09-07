@@ -1,10 +1,13 @@
 <div class="weather-app">
   <app-data-fetching-toggle />
-  
+
   <header class="app-header">
     <h1 class="app-title">Weather Dashboard</h1>
     <p class="app-subtitle">
-      Angular 20 with {{ dataFetchingMethod() === 'rxjs' ? 'RxJS + HttpClient' : 'httpResource' }}
+      Angular 20 with
+      {{
+        dataFetchingMethod() === 'rxjs' ? 'RxJS + HttpClient' : 'httpResource'
+      }}
     </p>
   </header>
 

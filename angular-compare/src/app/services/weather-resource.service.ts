@@ -10,7 +10,9 @@ export class WeatherResourceService {
 
   private locationResource = httpResource<LocationPoint>(() => {
     const coords = this.coordinates();
-    return coords ? `https://api.weather.gov/points/${coords.lat},${coords.lon}` : undefined;
+    return coords
+      ? `https://api.weather.gov/points/${coords.lat},${coords.lon}`
+      : undefined;
   });
 
   private weatherResource = httpResource<WeatherData>(() => {
@@ -20,7 +22,7 @@ export class WeatherResourceService {
 
   readonly location = computed(() => {
     const locationData = this.locationResource.value();
-    return locationData 
+    return locationData
       ? `${locationData.properties.relativeLocation.properties.city}, ${locationData.properties.relativeLocation.properties.state}`
       : '';
   });
@@ -35,12 +37,14 @@ export class WeatherResourceService {
     return weatherData ? weatherData.properties.periods.slice(1, 8) : [];
   });
 
-  readonly loading = computed(() => 
-    this.locationResource.isLoading() || this.weatherResource.isLoading()
+  readonly loading = computed(
+    () => this.locationResource.isLoading() || this.weatherResource.isLoading()
   );
 
-  readonly error = computed(() => 
-    this.locationResource.error() || this.weatherResource.error() ? 'Failed to fetch weather data' : null
+  readonly error = computed(() =>
+    this.locationResource.error() || this.weatherResource.error()
+      ? 'Failed to fetch weather data'
+      : null
   );
 
   searchWeather(lat: number, lon: number): void {
