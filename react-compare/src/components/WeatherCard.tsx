@@ -8,10 +8,10 @@ export const WeatherCard = ({ forecast }: WeatherCardProps) => {
   return (
     <div className="weather-card">
       <div className="card-day">{forecast.name}</div>
-      <img 
-        className="card-icon" 
-        src={forecast.icon} 
-        alt={forecast.shortForecast} 
+      <img
+        className="card-icon"
+        src={forecast.icon}
+        alt={forecast.shortForecast}
       />
       <div className="card-temps">
         <span className="card-high">{forecast.temperature}°</span>

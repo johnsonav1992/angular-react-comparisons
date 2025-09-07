@@ -4,10 +4,10 @@ import { useWeatherQuery } from '../hooks/useWeatherQuery';
 
 export const CurrentWeather = () => {
   const { dataFetchingMethod, selectedLocation } = useAppStore();
-  
+
   const vanillaData = useWeatherDataStore();
   const queryData = useWeatherQuery(
-    selectedLocation?.lat, 
+    selectedLocation?.lat,
     selectedLocation?.lon
   );
 

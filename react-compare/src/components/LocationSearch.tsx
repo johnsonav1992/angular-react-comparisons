@@ -10,10 +10,10 @@ export const LocationSearch = () => {
   const { fetchWeather } = useWeatherVanilla();
 
   const handleSearch = () => {
-    const coords = searchQuery.split(',').map(c => parseFloat(c.trim()));
+    const coords = searchQuery.split(',').map((c) => parseFloat(c.trim()));
     if (coords.length === 2 && !coords.some(isNaN)) {
       const [lat, lon] = coords;
-      
+
       if (dataFetchingMethod === 'vanilla') {
         fetchWeather(lat, lon);
       } else {

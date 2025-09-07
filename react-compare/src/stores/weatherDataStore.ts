@@ -6,19 +6,22 @@ interface WeatherDataActions {
   clearWeatherData: () => void;
 }
 
-export const useWeatherDataStore = create<WeatherState & WeatherDataActions>((set) => ({
-  location: '',
-  currentWeather: null,
-  forecast: [],
-  loading: false,
-  error: null,
-
-  setWeatherData: (data) => set((state) => ({ ...state, ...data })),
-  clearWeatherData: () => set({
+export const useWeatherDataStore = create<WeatherState & WeatherDataActions>(
+  (set) => ({
     location: '',
     currentWeather: null,
     forecast: [],
     loading: false,
-    error: null
+    error: null,
+
+    setWeatherData: (data) => set((state) => ({ ...state, ...data })),
+    clearWeatherData: () =>
+      set({
+        location: '',
+        currentWeather: null,
+        forecast: [],
+        loading: false,
+        error: null
+      })
   })
-}));
+);

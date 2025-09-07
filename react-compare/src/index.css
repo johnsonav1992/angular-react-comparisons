@@ -5,8 +5,9 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   color: #333;
   background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
@@ -161,7 +162,9 @@ body {
   border-radius: 8px;
   padding: 20px;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   border: 1px solid #e9ecef;
 }
 
@@ -228,8 +231,12 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-text {
@@ -252,19 +259,19 @@ body {
   .weather-app {
     padding: 16px;
   }
-  
+
   .app-title {
     font-size: 2rem;
   }
-  
+
   .current-temp {
     font-size: 3rem;
   }
-  
+
   .forecast-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .weather-details {
     grid-template-columns: 1fr;
   }
@@ -274,7 +281,7 @@ body {
   .forecast-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .current-weather,
   .location-search,
   .forecast-section {

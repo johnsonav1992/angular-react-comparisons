@@ -13,7 +13,10 @@ const queryClient = new QueryClient();
 function WeatherApp() {
   const { dataFetchingMethod, selectedLocation } = useAppStore();
   const vanillaData = useWeatherDataStore();
-  const queryData = useWeatherQuery(selectedLocation?.lat, selectedLocation?.lon);
+  const queryData = useWeatherQuery(
+    selectedLocation?.lat,
+    selectedLocation?.lon
+  );
 
   const data = dataFetchingMethod === 'vanilla' ? vanillaData : queryData;
 
@@ -22,7 +25,12 @@ function WeatherApp() {
       <DataFetchingToggle />
       <header className="app-header">
         <h1 className="app-title">Weather Dashboard</h1>
-        <p className="app-subtitle">React 19 with {dataFetchingMethod === 'vanilla' ? 'Vanilla Fetch + Zustand' : 'React Query'}</p>
+        <p className="app-subtitle">
+          React 19 with{' '}
+          {dataFetchingMethod === 'vanilla'
+            ? 'Vanilla Fetch + Zustand'
+            : 'React Query'}
+        </p>
       </header>
       <LocationSearch />
       {data.loading ? (
@@ -45,4 +53,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
