@@ -33,49 +33,51 @@ export class WeatherService {
   readonly error = computed(() => this.state().error);
 
   searchWeather(lat: number, lon: number): Observable<void> {
-    this.state.update(state => ({
+    this.state.update((state) => ({
       ...state,
       loading: true,
       error: null
     }));
 
-    return this.http.get<LocationPoint>(`https://api.weather.gov/points/${lat},${lon}`).pipe(
-      switchMap(point => {
-        const location = `${point.properties.relativeLocation.properties.city}, ${point.properties.relativeLocation.properties.state}`;
-        
-        this.state.update(state => ({
-          ...state,
-          location
-        }));
+    return this.http
+      .get<LocationPoint>(`https://api.weather.gov/points/${lat},${lon}`)
+      .pipe(
+        switchMap((point) => {
+          const location = `${point.properties.relativeLocation.properties.city}, ${point.properties.relativeLocation.properties.state}`;
 
-        return this.http.get<WeatherData>(point.properties.forecast);
-      }),
-      map(weatherData => {
-        const periods = weatherData.properties.periods;
-        const current = periods[0];
-        const forecast = periods.slice(1, 8);
+          this.state.update((state) => ({
+            ...state,
+            location
+          }));
 
-        this.state.update(state => ({
-          ...state,
-          currentWeather: current,
-          forecast,
-          loading: false,
-          error: null
-        }));
-      }),
-      catchError(error => {
-        this.state.update(state => ({
-          ...state,
-          loading: false,
-          error: 'Failed to fetch weather data'
-        }));
-        return throwError(() => error);
-      })
-    );
+          return this.http.get<WeatherData>(point.properties.forecast);
+        }),
+        map((weatherData) => {
+          const periods = weatherData.properties.periods;
+          const current = periods[0];
+          const forecast = periods.slice(1, 8);
+
+          this.state.update((state) => ({
+            ...state,
+            currentWeather: current,
+            forecast,
+            loading: false,
+            error: null
+          }));
+        }),
+        catchError((error) => {
+          this.state.update((state) => ({
+            ...state,
+            loading: false,
+            error: 'Failed to fetch weather data'
+          }));
+          return throwError(() => error);
+        })
+      );
   }
 
   clearError(): void {
-    this.state.update(state => ({
+    this.state.update((state) => ({
       ...state,
       error: null
     }));

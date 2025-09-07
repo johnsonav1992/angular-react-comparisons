@@ -41,7 +41,9 @@ export class LocationSearchComponent {
   }
 
   handleSearch(): void {
-    const coords = this.searchQuery().split(',').map(c => parseFloat(c.trim()));
+    const coords = this.searchQuery()
+      .split(',')
+      .map((c) => parseFloat(c.trim()));
     if (coords.length === 2 && !coords.some(isNaN)) {
       this.weatherService.searchWeather(coords[0], coords[1]).subscribe();
     }

@@ -1,6 +1,10 @@
 <div class="weather-card">
   <div class="card-day">{{ forecast().name }}</div>
-  <img class="card-icon" [src]="forecast().icon" [alt]="forecast().shortForecast" />
+  <img
+    class="card-icon"
+    [src]="forecast().icon"
+    [alt]="forecast().shortForecast"
+  />
   <div class="card-temps">
     <span class="card-high">{{ forecast().temperature }}°</span>
     <span class="card-low">{{ forecast().temperatureUnit }}</span>

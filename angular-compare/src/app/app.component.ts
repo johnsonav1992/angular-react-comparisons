@@ -7,7 +7,12 @@ import { WeatherService } from './services/weather.service';
 
 @Component({
   selector: 'app-root',
-  imports: [LocationSearchComponent, CurrentWeatherComponent, ForecastListComponent, LoadingSpinnerComponent],
+  imports: [
+    LocationSearchComponent,
+    CurrentWeatherComponent,
+    ForecastListComponent,
+    LoadingSpinnerComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
