@@ -10,7 +10,7 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   color: #333;
-  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  background: linear-gradient(135deg, #a8d8ff 0%, #74b9ff 100%);
   min-height: 100vh;
 }
 
