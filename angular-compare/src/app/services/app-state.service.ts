@@ -1,6 +1,7 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { WeatherService } from './weather.service';
 import { WeatherResourceService } from './weather-resource.service';
+import { WeatherRxJSService } from './weather-rxjs.service';
 
 export type DataFetchingMethod = 'rxjs' | 'resource';
 
@@ -10,6 +11,7 @@ export type DataFetchingMethod = 'rxjs' | 'resource';
 export class AppStateService {
   private weatherService = inject(WeatherService);
   private weatherResourceService = inject(WeatherResourceService);
+  private weatherRxJSService = inject(WeatherRxJSService);
   
   private _dataFetchingMethod = signal<DataFetchingMethod>('rxjs');
   private _selectedLocation = signal<{ lat: number; lon: number } | null>(null);
@@ -27,8 +29,9 @@ export class AppStateService {
   }
 
   private clearWeatherData(): void {
-    // Clear both services' data when switching methods
+    // Clear all services' data when switching methods
     this.weatherService.clearAll();
     this.weatherResourceService.clearAll();
+    this.weatherRxJSService.clearAll();
   }
 }

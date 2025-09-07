@@ -23,10 +23,11 @@ export const useWeatherQuery = (lat?: number, lon?: number) => {
     enabled: !!lat && !!lon
   });
 
+  const forecastUrl = locationQuery.data?.properties.forecast;
   const weatherQuery = useQuery({
-    queryKey: ['weather', locationQuery.data?.properties.forecast],
-    queryFn: () => fetchWeatherData(locationQuery.data!.properties.forecast),
-    enabled: !!locationQuery.data?.properties.forecast
+    queryKey: ['weather', lat, lon, forecastUrl],
+    queryFn: () => fetchWeatherData(forecastUrl!),
+    enabled: !!forecastUrl && !!locationQuery.data
   });
 
   const location = locationQuery.data

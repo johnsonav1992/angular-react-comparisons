@@ -10,10 +10,21 @@
 
   <app-location-search />
 
-  @if (loading()) {
-    <app-loading-spinner />
+  @if (dataFetchingMethod() === 'rxjs') {
+    @if (rxjsLoading() | async; as weather) {
+      @if (weather.loading) {
+        <app-loading-spinner />
+      } @else {
+        <app-current-weather-rxjs />
+        <app-forecast-list-rxjs />
+      }
+    }
   } @else {
-    <app-current-weather />
-    <app-forecast-list />
+    @if (loading()) {
+      <app-loading-spinner />
+    } @else {
+      <app-current-weather />
+      <app-forecast-list />
+    }
   }
 </div>

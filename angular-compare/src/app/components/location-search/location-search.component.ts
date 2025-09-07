@@ -1,6 +1,8 @@
 import { Component, signal, inject, computed } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { WeatherService } from '../../services/weather.service';
 import { WeatherResourceService } from '../../services/weather-resource.service';
+import { WeatherRxJSService } from '../../services/weather-rxjs.service';
 import { AppStateService } from '../../services/app-state.service';
 
 @Component({
@@ -11,7 +13,7 @@ import { AppStateService } from '../../services/app-state.service';
       <input
         type="text"
         class="search-input"
-        placeholder="Enter coordinates (e.g., 40.7128,-74.0060)"
+        placeholder="Enter coordinates (e.g., 32.7767,-96.7970)"
         [value]="searchQuery()"
         (input)="onSearchChange($event)"
         (keydown.enter)="handleSearch()"
@@ -36,18 +38,19 @@ import { AppStateService } from '../../services/app-state.service';
 export class LocationSearchComponent {
   weatherService = inject(WeatherService);
   weatherResourceService = inject(WeatherResourceService);
+  weatherRxJSService = inject(WeatherRxJSService);
   appState = inject(AppStateService);
-  searchQuery = signal('40.7128,-74.0060');
+  searchQuery = signal('32.7767,-96.7970');
 
   loading = computed(() => 
     this.appState.dataFetchingMethod() === 'rxjs' 
-      ? this.weatherService.loading() 
+      ? false // RxJS service uses observables, loading handled in components
       : this.weatherResourceService.loading()
   );
 
   error = computed(() => 
     this.appState.dataFetchingMethod() === 'rxjs' 
-      ? this.weatherService.error() 
+      ? null // RxJS service uses observables, error handled in components
       : this.weatherResourceService.error()
   );
 
@@ -64,9 +67,10 @@ export class LocationSearchComponent {
       // Clear previous data and start fresh search
       this.weatherService.clearAll();
       this.weatherResourceService.clearAll();
+      this.weatherRxJSService.clearAll();
       
       if (this.appState.dataFetchingMethod() === 'rxjs') {
-        this.weatherService.searchWeather(coords[0], coords[1]).subscribe();
+        this.weatherRxJSService.searchWeather(coords[0], coords[1]);
       } else {
         this.weatherResourceService.searchWeather(coords[0], coords[1]);
       }

@@ -3,9 +3,13 @@ import { useAppStore } from '../stores/appStore';
 import { useWeatherDataStore } from '../stores/weatherDataStore';
 import { useWeatherVanilla } from '../hooks/useWeatherVanilla';
 
-export const LocationSearch = () => {
-  const [searchQuery, setSearchQuery] = useState('40.7128,-74.0060');
-  const { dataFetchingMethod, setSelectedLocation } = useAppStore();
+interface LocationSearchProps {
+  onRefetch?: () => void;
+}
+
+export const LocationSearch = ({ onRefetch }: LocationSearchProps) => {
+  const [searchQuery, setSearchQuery] = useState('32.7767,-96.7970');
+  const { dataFetchingMethod, setSelectedLocation, selectedLocation } = useAppStore();
   const { loading, error } = useWeatherDataStore();
   const { fetchWeather } = useWeatherVanilla();
 
@@ -21,7 +25,12 @@ export const LocationSearch = () => {
       if (dataFetchingMethod === 'vanilla') {
         fetchWeather(lat, lon);
       } else {
-        setSelectedLocation({ lat, lon });
+        // If same coordinates, force refetch; otherwise set new location
+        if (selectedLocation?.lat === lat && selectedLocation?.lon === lon) {
+          onRefetch?.();
+        } else {
+          setSelectedLocation({ lat, lon });
+        }
       }
     }
   };
@@ -37,7 +46,7 @@ export const LocationSearch = () => {
       <input
         type="text"
         className="search-input"
-        placeholder="Enter coordinates (e.g., 40.7128,-74.0060)"
+        placeholder="Enter coordinates (e.g., 32.7767,-96.7970)"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         onKeyDown={handleKeyDown}

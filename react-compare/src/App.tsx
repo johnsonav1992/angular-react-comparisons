@@ -32,13 +32,13 @@ function WeatherApp() {
             : 'React Query'}
         </p>
       </header>
-      <LocationSearch />
+      <LocationSearch onRefetch={queryData.refetch} />
       {data.loading ? (
         <LoadingSpinner />
       ) : (
         <>
-          <CurrentWeather />
-          <ForecastList />
+          <CurrentWeather data={data} />
+          <ForecastList data={data} />
         </>
       )}
     </div>

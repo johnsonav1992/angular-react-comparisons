@@ -1,18 +1,16 @@
-import { useAppStore } from '../stores/appStore';
-import { useWeatherDataStore } from '../stores/weatherDataStore';
-import { useWeatherQuery } from '../hooks/useWeatherQuery';
 import { WeatherCard } from './WeatherCard';
 
-export const ForecastList = () => {
-  const { dataFetchingMethod, selectedLocation } = useAppStore();
+interface ForecastListProps {
+  data: {
+    location: string;
+    currentWeather: any;
+    forecast: any[];
+    loading: boolean;
+    error: string | null;
+  };
+}
 
-  const vanillaData = useWeatherDataStore();
-  const queryData = useWeatherQuery(
-    selectedLocation?.lat,
-    selectedLocation?.lon
-  );
-
-  const data = dataFetchingMethod === 'vanilla' ? vanillaData : queryData;
+export const ForecastList = ({ data }: ForecastListProps) => {
 
   if (data.forecast.length === 0) return null;
 
