@@ -1,5 +1,7 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, computed } from '@angular/core';
 import { WeatherService } from '../../services/weather.service';
+import { WeatherResourceService } from '../../services/weather-resource.service';
+import { AppStateService } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-location-search',
@@ -16,24 +18,38 @@ import { WeatherService } from '../../services/weather.service';
       />
       <button
         class="search-button"
-        [disabled]="weatherService.loading()"
+        [disabled]="loading()"
         (click)="handleSearch()"
       >
-        @if (weatherService.loading()) {
+        @if (loading()) {
           Searching...
         } @else {
           Get Weather
         }
       </button>
-      @if (weatherService.error()) {
-        <div class="error-message">{{ weatherService.error() }}</div>
+      @if (error()) {
+        <div class="error-message">{{ error() }}</div>
       }
     </div>
   `
 })
 export class LocationSearchComponent {
   weatherService = inject(WeatherService);
+  weatherResourceService = inject(WeatherResourceService);
+  appState = inject(AppStateService);
   searchQuery = signal('40.7128,-74.0060');
+
+  loading = computed(() => 
+    this.appState.dataFetchingMethod() === 'rxjs' 
+      ? this.weatherService.loading() 
+      : this.weatherResourceService.loading()
+  );
+
+  error = computed(() => 
+    this.appState.dataFetchingMethod() === 'rxjs' 
+      ? this.weatherService.error() 
+      : this.weatherResourceService.error()
+  );
 
   onSearchChange(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -45,7 +61,15 @@ export class LocationSearchComponent {
       .split(',')
       .map((c) => parseFloat(c.trim()));
     if (coords.length === 2 && !coords.some(isNaN)) {
-      this.weatherService.searchWeather(coords[0], coords[1]).subscribe();
+      // Clear previous data and start fresh search
+      this.weatherService.clearAll();
+      this.weatherResourceService.clearAll();
+      
+      if (this.appState.dataFetchingMethod() === 'rxjs') {
+        this.weatherService.searchWeather(coords[0], coords[1]).subscribe();
+      } else {
+        this.weatherResourceService.searchWeather(coords[0], coords[1]);
+      }
     }
   }
 }

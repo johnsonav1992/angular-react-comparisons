@@ -14,6 +14,10 @@ export const LocationSearch = () => {
     if (coords.length === 2 && !coords.some(isNaN)) {
       const [lat, lon] = coords;
 
+      // Clear previous data and start fresh search
+      const { clearWeatherData } = useWeatherDataStore.getState();
+      clearWeatherData();
+
       if (dataFetchingMethod === 'vanilla') {
         fetchWeather(lat, lon);
       } else {

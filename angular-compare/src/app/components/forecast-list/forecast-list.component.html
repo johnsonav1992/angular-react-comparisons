@@ -1,8 +1,8 @@
-@if (weatherService.forecast().length > 0) {
+@if (forecast().length > 0) {
   <div class="forecast-section">
     <h3 class="forecast-title">7-Day Forecast</h3>
     <div class="forecast-grid">
-      @for (day of weatherService.forecast(); track day.number) {
+      @for (day of forecast(); track day.number) {
         <app-weather-card [forecast]="day" />
       }
     </div>

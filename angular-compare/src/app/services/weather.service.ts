@@ -82,4 +82,14 @@ export class WeatherService {
       error: null
     }));
   }
+
+  clearAll(): void {
+    this.state.set({
+      location: '',
+      currentWeather: null,
+      forecast: [],
+      loading: false,
+      error: null
+    });
+  }
 }

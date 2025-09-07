@@ -41,7 +41,7 @@ export const useWeatherQuery = (lat?: number, lon?: number) => {
     location,
     currentWeather,
     forecast,
-    loading: locationQuery.isLoading || weatherQuery.isLoading,
+    loading: locationQuery.isLoading || weatherQuery.isLoading || locationQuery.isFetching || weatherQuery.isFetching,
     error: locationQuery.error?.message || weatherQuery.error?.message || null,
     refetch: () => {
       locationQuery.refetch();

@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { useWeatherDataStore } from './weatherDataStore';
 
 interface AppState {
   theme: 'light' | 'dark';
@@ -18,6 +19,12 @@ export const useAppStore = create<AppState & AppActions>((set) => ({
   selectedLocation: null,
 
   setTheme: (theme) => set({ theme }),
-  setDataFetchingMethod: (method) => set({ dataFetchingMethod: method }),
+  
+  setDataFetchingMethod: (method) => {
+    // Clear weather data when switching methods
+    useWeatherDataStore.getState().clearWeatherData();
+    set({ dataFetchingMethod: method, selectedLocation: null });
+  },
+  
   setSelectedLocation: (location) => set({ selectedLocation: location })
 }));
