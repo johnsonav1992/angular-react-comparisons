@@ -9,7 +9,8 @@ interface LocationSearchProps {
 
 export const LocationSearch = ({ onRefetch }: LocationSearchProps) => {
   const [searchQuery, setSearchQuery] = useState('32.7767,-96.7970');
-  const { dataFetchingMethod, setSelectedLocation, selectedLocation } = useAppStore();
+  const { dataFetchingMethod, setSelectedLocation, selectedLocation } =
+    useAppStore();
   const { loading, error } = useWeatherDataStore();
   const { fetchWeather } = useWeatherVanilla();
 

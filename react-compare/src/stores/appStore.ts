@@ -19,12 +19,12 @@ export const useAppStore = create<AppState & AppActions>((set) => ({
   selectedLocation: null,
 
   setTheme: (theme) => set({ theme }),
-  
+
   setDataFetchingMethod: (method) => {
     // Clear weather data when switching methods
     useWeatherDataStore.getState().clearWeatherData();
     set({ dataFetchingMethod: method, selectedLocation: null });
   },
-  
+
   setSelectedLocation: (location) => set({ selectedLocation: location })
 }));

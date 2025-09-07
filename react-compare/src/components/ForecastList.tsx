@@ -11,7 +11,6 @@ interface ForecastListProps {
 }
 
 export const ForecastList = ({ data }: ForecastListProps) => {
-
   if (data.forecast.length === 0) return null;
 
   return (

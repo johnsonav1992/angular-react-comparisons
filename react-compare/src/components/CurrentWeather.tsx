@@ -9,7 +9,6 @@ interface CurrentWeatherProps {
 }
 
 export const CurrentWeather = ({ data }: CurrentWeatherProps) => {
-
   if (!data.currentWeather) return null;
 
   return (
