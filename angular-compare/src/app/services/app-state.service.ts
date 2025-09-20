@@ -29,7 +29,6 @@ export class AppStateService {
   }
 
   private clearWeatherData(): void {
-    // Clear all services' data when switching methods
     this.weatherService.clearAll();
     this.weatherResourceService.clearAll();
     this.weatherRxJSService.clearAll();

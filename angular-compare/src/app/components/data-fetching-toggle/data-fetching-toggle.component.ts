@@ -4,25 +4,7 @@ import { AppStateService } from '../../services/app-state.service';
 @Component({
   selector: 'app-data-fetching-toggle',
   standalone: true,
-  template: `
-    <div class="data-fetching-toggle">
-      <span class="toggle-label">Data Fetching:</span>
-      <button
-        class="toggle-button"
-        [class.active]="dataFetchingMethod() === 'rxjs'"
-        (click)="setRxjs()"
-      >
-        RxJS
-      </button>
-      <button
-        class="toggle-button"
-        [class.active]="dataFetchingMethod() === 'resource'"
-        (click)="setResource()"
-      >
-        httpResource
-      </button>
-    </div>
-  `,
+  templateUrl: './data-fetching-toggle.component.html',
   styles: [
     `
       .data-fetching-toggle {

@@ -11,7 +11,7 @@ export class WeatherResourceService {
   private locationResource = httpResource<LocationPoint>(() => {
     const coords = this.coordinates();
     return coords
-      ? `https://api.weather.gov/points/${coords.lat},${coords.lon}`
+      ? { url: `https://api.weather.gov/points/${coords.lat},${coords.lon}` }
       : undefined;
   });
 

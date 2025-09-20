@@ -1,0 +1,12 @@
+@if (weatherRxJSService.weatherData$ | async; as weather) {
+  @if (weather.forecast.length > 0) {
+    <div class="forecast-section">
+      <h3 class="forecast-title">7-Day Forecast</h3>
+      <div class="forecast-grid">
+        @for (day of weather.forecast; track day.number) {
+          <app-weather-card [forecast]="day" />
+        }
+      </div>
+    </div>
+  }
+}

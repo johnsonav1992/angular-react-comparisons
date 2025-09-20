@@ -8,32 +8,7 @@ import { AppStateService } from '../../services/app-state.service';
 @Component({
   selector: 'app-location-search',
   standalone: true,
-  template: `
-    <div class="location-search">
-      <input
-        type="text"
-        class="search-input"
-        placeholder="Enter coordinates (e.g., 32.7767,-96.7970)"
-        [value]="searchQuery()"
-        (input)="onSearchChange($event)"
-        (keydown.enter)="handleSearch()"
-      />
-      <button
-        class="search-button"
-        [disabled]="loading()"
-        (click)="handleSearch()"
-      >
-        @if (loading()) {
-          Searching...
-        } @else {
-          Get Weather
-        }
-      </button>
-      @if (error()) {
-        <div class="error-message">{{ error() }}</div>
-      }
-    </div>
-  `
+  templateUrl: './location-search.component.html'
 })
 export class LocationSearchComponent {
   weatherService = inject(WeatherService);

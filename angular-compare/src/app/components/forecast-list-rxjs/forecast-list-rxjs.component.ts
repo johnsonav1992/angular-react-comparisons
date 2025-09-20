@@ -7,20 +7,7 @@ import { WeatherCardComponent } from '../weather-card/weather-card.component';
   selector: 'app-forecast-list-rxjs',
   standalone: true,
   imports: [AsyncPipe, WeatherCardComponent],
-  template: `
-    @if (weatherRxJSService.weatherData$ | async; as weather) {
-      @if (weather.forecast.length > 0) {
-        <div class="forecast-section">
-          <h3 class="forecast-title">7-Day Forecast</h3>
-          <div class="forecast-grid">
-            @for (day of weather.forecast; track day.number) {
-              <app-weather-card [forecast]="day" />
-            }
-          </div>
-        </div>
-      }
-    }
-  `
+  templateUrl: './forecast-list-rxjs.component.html'
 })
 export class ForecastListRxJSComponent {
   weatherRxJSService = inject(WeatherRxJSService);
