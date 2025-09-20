@@ -9,14 +9,18 @@ interface LocationSearchProps {
 
 export const LocationSearch = ({ onRefetch }: LocationSearchProps) => {
   const [searchQuery, setSearchQuery] = useState('32.7767,-96.7970');
-  const { dataFetchingMethod, setSelectedLocation, selectedLocation } =
-    useAppStore();
-    
+  const { 
+    dataFetchingMethod, 
+    setSelectedLocation,
+    selectedLocation 
+  } = useAppStore();
+
   const { loading, error } = useWeatherDataStore();
   const { fetchWeather } = useWeatherVanilla();
 
   const handleSearch = () => {
     const coords = searchQuery.split(',').map((c) => parseFloat(c.trim()));
+    
     if (coords.length === 2 && !coords.some(isNaN)) {
       const [lat, lon] = coords;
 
