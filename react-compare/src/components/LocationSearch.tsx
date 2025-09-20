@@ -11,6 +11,7 @@ export const LocationSearch = ({ onRefetch }: LocationSearchProps) => {
   const [searchQuery, setSearchQuery] = useState('32.7767,-96.7970');
   const { dataFetchingMethod, setSelectedLocation, selectedLocation } =
     useAppStore();
+    
   const { loading, error } = useWeatherDataStore();
   const { fetchWeather } = useWeatherVanilla();
 
@@ -19,14 +20,12 @@ export const LocationSearch = ({ onRefetch }: LocationSearchProps) => {
     if (coords.length === 2 && !coords.some(isNaN)) {
       const [lat, lon] = coords;
 
-      // Clear previous data and start fresh search
       const { clearWeatherData } = useWeatherDataStore.getState();
       clearWeatherData();
 
       if (dataFetchingMethod === 'vanilla') {
         fetchWeather(lat, lon);
       } else {
-        // If same coordinates, force refetch; otherwise set new location
         if (selectedLocation?.lat === lat && selectedLocation?.lon === lon) {
           onRefetch?.();
         } else {

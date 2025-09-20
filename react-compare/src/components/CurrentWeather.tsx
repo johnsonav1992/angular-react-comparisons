@@ -1,11 +1,7 @@
+import type { WeatherState } from '../types/weather';
+
 interface CurrentWeatherProps {
-  data: {
-    location: string;
-    currentWeather: any;
-    forecast: any[];
-    loading: boolean;
-    error: string | null;
-  };
+  data: WeatherState;
 }
 
 export const CurrentWeather = ({ data }: CurrentWeatherProps) => {

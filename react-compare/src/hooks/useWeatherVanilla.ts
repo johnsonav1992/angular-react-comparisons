@@ -13,6 +13,7 @@ export const useWeatherVanilla = () => {
         const pointResponse = await fetch(
           `https://api.weather.gov/points/${lat},${lon}`
         );
+
         if (!pointResponse.ok) throw new Error('Failed to fetch location data');
 
         const point: LocationPoint = await pointResponse.json();
@@ -21,6 +22,7 @@ export const useWeatherVanilla = () => {
         setWeatherData({ location });
 
         const weatherResponse = await fetch(point.properties.forecast);
+        
         if (!weatherResponse.ok)
           throw new Error('Failed to fetch weather data');
 
@@ -35,7 +37,7 @@ export const useWeatherVanilla = () => {
           loading: false,
           error: null
         });
-      } catch (error) {
+      } catch {
         setWeatherData({
           loading: false,
           error: 'Failed to fetch weather data'

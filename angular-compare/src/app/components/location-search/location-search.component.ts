@@ -14,17 +14,18 @@ export class LocationSearchComponent {
   private readonly _weatherResourceService = inject(WeatherResourceService);
   private readonly _weatherRxJSService = inject(WeatherRxJSService);
   private readonly _appState = inject(AppStateService);
+
   public readonly searchQuery = signal('32.7767,-96.7970');
 
   public readonly loading = computed(() =>
     this._appState.dataFetchingMethod() === 'rxjs'
-      ? false // RxJS service uses observables, loading handled in components
+      ? false
       : this._weatherResourceService.loading()
   );
 
   public readonly error = computed(() =>
     this._appState.dataFetchingMethod() === 'rxjs'
-      ? null // RxJS service uses observables, error handled in components
+      ? null
       : this._weatherResourceService.error()
   );
 

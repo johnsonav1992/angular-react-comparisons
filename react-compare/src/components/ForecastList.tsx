@@ -1,13 +1,8 @@
 import { WeatherCard } from './WeatherCard';
+import type { WeatherState } from '../types/weather';
 
 interface ForecastListProps {
-  data: {
-    location: string;
-    currentWeather: any;
-    forecast: any[];
-    loading: boolean;
-    error: string | null;
-  };
+  data: WeatherState;
 }
 
 export const ForecastList = ({ data }: ForecastListProps) => {

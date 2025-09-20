@@ -6,13 +6,17 @@ const fetchLocationData = async (
   lon: number
 ): Promise<LocationPoint> => {
   const response = await fetch(`https://api.weather.gov/points/${lat},${lon}`);
+
   if (!response.ok) throw new Error('Failed to fetch location data');
+
   return response.json();
 };
 
 const fetchWeatherData = async (forecastUrl: string): Promise<WeatherData> => {
   const response = await fetch(forecastUrl);
+
   if (!response.ok) throw new Error('Failed to fetch weather data');
+  
   return response.json();
 };
 
@@ -24,6 +28,7 @@ export const useWeatherQuery = (lat?: number, lon?: number) => {
   });
 
   const forecastUrl = locationQuery.data?.properties.forecast;
+
   const weatherQuery = useQuery({
     queryKey: ['weather', lat, lon, forecastUrl],
     queryFn: () => fetchWeatherData(forecastUrl!),
