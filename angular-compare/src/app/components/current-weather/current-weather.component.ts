@@ -5,23 +5,22 @@ import { AppStateService } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-current-weather',
-  standalone: true,
   templateUrl: './current-weather.component.html'
 })
 export class CurrentWeatherComponent {
-  weatherService = inject(WeatherService);
-  weatherResourceService = inject(WeatherResourceService);
-  appState = inject(AppStateService);
+  private readonly _weatherService = inject(WeatherService);
+  private readonly _weatherResourceService = inject(WeatherResourceService);
+  private readonly _appState = inject(AppStateService);
 
-  location = computed(() =>
-    this.appState.dataFetchingMethod() === 'rxjs'
-      ? this.weatherService.location()
-      : this.weatherResourceService.location()
+  public readonly location = computed(() =>
+    this._appState.dataFetchingMethod() === 'rxjs'
+      ? this._weatherService.location()
+      : this._weatherResourceService.location()
   );
 
-  currentWeather = computed(() =>
-    this.appState.dataFetchingMethod() === 'rxjs'
-      ? this.weatherService.currentWeather()
-      : this.weatherResourceService.currentWeather()
+  public readonly currentWeather = computed(() =>
+    this._appState.dataFetchingMethod() === 'rxjs'
+      ? this._weatherService.currentWeather()
+      : this._weatherResourceService.currentWeather()
   );
 }

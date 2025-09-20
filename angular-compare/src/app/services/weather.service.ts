@@ -16,9 +16,9 @@ export interface WeatherState {
   providedIn: 'root'
 })
 export class WeatherService {
-  private http = inject(HttpClient);
+  private readonly _http = inject(HttpClient);
 
-  private state = signal<WeatherState>({
+  private readonly _state = signal<WeatherState>({
     location: '',
     currentWeather: null,
     forecast: [],
@@ -26,38 +26,38 @@ export class WeatherService {
     error: null
   });
 
-  readonly location = computed(() => this.state().location);
-  readonly currentWeather = computed(() => this.state().currentWeather);
-  readonly forecast = computed(() => this.state().forecast);
-  readonly loading = computed(() => this.state().loading);
-  readonly error = computed(() => this.state().error);
+  public readonly location = computed(() => this._state().location);
+  public readonly currentWeather = computed(() => this._state().currentWeather);
+  public readonly forecast = computed(() => this._state().forecast);
+  public readonly loading = computed(() => this._state().loading);
+  public readonly error = computed(() => this._state().error);
 
-  searchWeather(lat: number, lon: number): Observable<void> {
-    this.state.update((state) => ({
+  public searchWeather(lat: number, lon: number): Observable<void> {
+    this._state.update((state) => ({
       ...state,
       loading: true,
       error: null
     }));
 
-    return this.http
+    return this._http
       .get<LocationPoint>(`https://api.weather.gov/points/${lat},${lon}`)
       .pipe(
         switchMap((point) => {
           const location = `${point.properties.relativeLocation.properties.city}, ${point.properties.relativeLocation.properties.state}`;
 
-          this.state.update((state) => ({
+          this._state.update((state) => ({
             ...state,
             location
           }));
 
-          return this.http.get<WeatherData>(point.properties.forecast);
+          return this._http.get<WeatherData>(point.properties.forecast);
         }),
         map((weatherData) => {
           const periods = weatherData.properties.periods;
           const current = periods[0];
           const forecast = periods.slice(1, 8);
 
-          this.state.update((state) => ({
+          this._state.update((state) => ({
             ...state,
             currentWeather: current,
             forecast,
@@ -66,7 +66,7 @@ export class WeatherService {
           }));
         }),
         catchError((error) => {
-          this.state.update((state) => ({
+          this._state.update((state) => ({
             ...state,
             loading: false,
             error: 'Failed to fetch weather data'
@@ -76,15 +76,15 @@ export class WeatherService {
       );
   }
 
-  clearError(): void {
-    this.state.update((state) => ({
+  public clearError(): void {
+    this._state.update((state) => ({
       ...state,
       error: null
     }));
   }
 
-  clearAll(): void {
-    this.state.set({
+  public clearAll(): void {
+    this._state.set({
       location: '',
       currentWeather: null,
       forecast: [],

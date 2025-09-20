@@ -3,9 +3,8 @@ import { WeatherForecast } from '../../types/weather';
 
 @Component({
   selector: 'app-weather-card',
-  standalone: true,
   templateUrl: './weather-card.component.html'
 })
 export class WeatherCardComponent {
-  forecast = input.required<WeatherForecast>();
+  public readonly forecast = input.required<WeatherForecast>();
 }

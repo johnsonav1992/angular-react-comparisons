@@ -7,47 +7,46 @@ import { AppStateService } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-location-search',
-  standalone: true,
   templateUrl: './location-search.component.html'
 })
 export class LocationSearchComponent {
-  weatherService = inject(WeatherService);
-  weatherResourceService = inject(WeatherResourceService);
-  weatherRxJSService = inject(WeatherRxJSService);
-  appState = inject(AppStateService);
-  searchQuery = signal('32.7767,-96.7970');
+  private readonly _weatherService = inject(WeatherService);
+  private readonly _weatherResourceService = inject(WeatherResourceService);
+  private readonly _weatherRxJSService = inject(WeatherRxJSService);
+  private readonly _appState = inject(AppStateService);
+  public readonly searchQuery = signal('32.7767,-96.7970');
 
-  loading = computed(() =>
-    this.appState.dataFetchingMethod() === 'rxjs'
+  public readonly loading = computed(() =>
+    this._appState.dataFetchingMethod() === 'rxjs'
       ? false // RxJS service uses observables, loading handled in components
-      : this.weatherResourceService.loading()
+      : this._weatherResourceService.loading()
   );
 
-  error = computed(() =>
-    this.appState.dataFetchingMethod() === 'rxjs'
+  public readonly error = computed(() =>
+    this._appState.dataFetchingMethod() === 'rxjs'
       ? null // RxJS service uses observables, error handled in components
-      : this.weatherResourceService.error()
+      : this._weatherResourceService.error()
   );
 
-  onSearchChange(event: Event): void {
+  public onSearchChange(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.searchQuery.set(target.value);
   }
 
-  handleSearch(): void {
+  public handleSearch(): void {
     const coords = this.searchQuery()
       .split(',')
       .map((c) => parseFloat(c.trim()));
     if (coords.length === 2 && !coords.some(isNaN)) {
       // Clear previous data and start fresh search
-      this.weatherService.clearAll();
-      this.weatherResourceService.clearAll();
-      this.weatherRxJSService.clearAll();
+      this._weatherService.clearAll();
+      this._weatherResourceService.clearAll();
+      this._weatherRxJSService.clearAll();
 
-      if (this.appState.dataFetchingMethod() === 'rxjs') {
-        this.weatherRxJSService.searchWeather(coords[0], coords[1]);
+      if (this._appState.dataFetchingMethod() === 'rxjs') {
+        this._weatherRxJSService.searchWeather(coords[0], coords[1]);
       } else {
-        this.weatherResourceService.searchWeather(coords[0], coords[1]);
+        this._weatherResourceService.searchWeather(coords[0], coords[1]);
       }
     }
   }

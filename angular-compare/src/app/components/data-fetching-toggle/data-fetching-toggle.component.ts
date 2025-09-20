@@ -3,7 +3,6 @@ import { AppStateService } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-data-fetching-toggle',
-  standalone: true,
   templateUrl: './data-fetching-toggle.component.html',
   styles: [
     `
@@ -45,15 +44,15 @@ import { AppStateService } from '../../services/app-state.service';
   ]
 })
 export class DataFetchingToggleComponent {
-  appState = inject(AppStateService);
+  private readonly _appState = inject(AppStateService);
 
-  dataFetchingMethod = computed(() => this.appState.dataFetchingMethod());
+  public readonly dataFetchingMethod = computed(() => this._appState.dataFetchingMethod());
 
-  setRxjs(): void {
-    this.appState.setDataFetchingMethod('rxjs');
+  public setRxjs(): void {
+    this._appState.setDataFetchingMethod('rxjs');
   }
 
-  setResource(): void {
-    this.appState.setDataFetchingMethod('resource');
+  public setResource(): void {
+    this._appState.setDataFetchingMethod('resource');
   }
 }

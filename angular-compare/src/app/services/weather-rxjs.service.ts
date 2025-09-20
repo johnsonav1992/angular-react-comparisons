@@ -22,13 +22,13 @@ export interface WeatherRxJSState {
   providedIn: 'root'
 })
 export class WeatherRxJSService {
-  private http = inject(HttpClient);
-  private searchSubject = new BehaviorSubject<{
+  private readonly _http = inject(HttpClient);
+  private readonly _searchSubject = new BehaviorSubject<{
     lat: number;
     lon: number;
   } | null>(null);
 
-  readonly weatherData$: Observable<WeatherRxJSState> = this.searchSubject.pipe(
+  public readonly weatherData$: Observable<WeatherRxJSState> = this._searchSubject.pipe(
     switchMap((coords) => {
       if (!coords) {
         return [
@@ -42,7 +42,7 @@ export class WeatherRxJSService {
         ];
       }
 
-      return this.http
+      return this._http
         .get<LocationPoint>(
           `https://api.weather.gov/points/${coords.lat},${coords.lon}`
         )
@@ -50,7 +50,7 @@ export class WeatherRxJSService {
           switchMap((point) => {
             const location = `${point.properties.relativeLocation.properties.city}, ${point.properties.relativeLocation.properties.state}`;
 
-            return this.http.get<WeatherData>(point.properties.forecast).pipe(
+            return this._http.get<WeatherData>(point.properties.forecast).pipe(
               map((weatherData) => {
                 const periods = weatherData.properties.periods;
                 const current = periods[0];
@@ -89,11 +89,11 @@ export class WeatherRxJSService {
     shareReplay(1)
   );
 
-  searchWeather(lat: number, lon: number): void {
-    this.searchSubject.next({ lat, lon });
+  public searchWeather(lat: number, lon: number): void {
+    this._searchSubject.next({ lat, lon });
   }
 
-  clearAll(): void {
-    this.searchSubject.next(null);
+  public clearAll(): void {
+    this._searchSubject.next(null);
   }
 }

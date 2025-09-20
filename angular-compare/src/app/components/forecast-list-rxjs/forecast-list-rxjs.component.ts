@@ -5,10 +5,9 @@ import { WeatherCardComponent } from '../weather-card/weather-card.component';
 
 @Component({
   selector: 'app-forecast-list-rxjs',
-  standalone: true,
   imports: [AsyncPipe, WeatherCardComponent],
   templateUrl: './forecast-list-rxjs.component.html'
 })
 export class ForecastListRxJSComponent {
-  weatherRxJSService = inject(WeatherRxJSService);
+  public readonly weatherRxJSService = inject(WeatherRxJSService);
 }

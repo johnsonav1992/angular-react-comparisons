@@ -7,7 +7,6 @@ import { CurrentWeatherRxJSComponent } from './components/current-weather-rxjs/c
 import { ForecastListRxJSComponent } from './components/forecast-list-rxjs/forecast-list-rxjs.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { DataFetchingToggleComponent } from './components/data-fetching-toggle/data-fetching-toggle.component';
-import { WeatherService } from './services/weather.service';
 import { WeatherResourceService } from './services/weather-resource.service';
 import { WeatherRxJSService } from './services/weather-rxjs.service';
 import { AppStateService } from './services/app-state.service';
@@ -25,24 +24,21 @@ import { AppStateService } from './services/app-state.service';
     DataFetchingToggleComponent
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
 })
 export class AppComponent {
-  weatherService = inject(WeatherService);
-  weatherResourceService = inject(WeatherResourceService);
-  weatherRxJSService = inject(WeatherRxJSService);
-  appState = inject(AppStateService);
+  private readonly _weatherResourceService = inject(WeatherResourceService);
+  public readonly weatherRxJSService = inject(WeatherRxJSService);
+  private readonly _appState = inject(AppStateService);
 
-  dataFetchingMethod = computed(() => this.appState.dataFetchingMethod());
+  public readonly dataFetchingMethod = computed(() => this._appState.dataFetchingMethod());
 
-  rxjsLoading = computed(() => {
-    // This will be used in template with async pipe
+  public readonly rxjsLoading = computed(() => {
     return this.weatherRxJSService.weatherData$;
   });
 
-  loading = computed(() =>
-    this.appState.dataFetchingMethod() === 'rxjs'
-      ? false // Loading handled via async pipe in template
-      : this.weatherResourceService.loading()
+  public readonly loading = computed(() =>
+    this._appState.dataFetchingMethod() === 'rxjs'
+      ? false
+      : this._weatherResourceService.loading()
   );
 }

@@ -9,28 +9,28 @@ export type DataFetchingMethod = 'rxjs' | 'resource';
   providedIn: 'root'
 })
 export class AppStateService {
-  private weatherService = inject(WeatherService);
-  private weatherResourceService = inject(WeatherResourceService);
-  private weatherRxJSService = inject(WeatherRxJSService);
+  private readonly _weatherService = inject(WeatherService);
+  private readonly _weatherResourceService = inject(WeatherResourceService);
+  private readonly _weatherRxJSService = inject(WeatherRxJSService);
 
-  private _dataFetchingMethod = signal<DataFetchingMethod>('rxjs');
-  private _selectedLocation = signal<{ lat: number; lon: number } | null>(null);
+  private readonly _dataFetchingMethod = signal<DataFetchingMethod>('rxjs');
+  private readonly _selectedLocation = signal<{ lat: number; lon: number } | null>(null);
 
-  readonly dataFetchingMethod = computed(() => this._dataFetchingMethod());
-  readonly selectedLocation = computed(() => this._selectedLocation());
+  public readonly dataFetchingMethod = computed(() => this._dataFetchingMethod());
+  public readonly selectedLocation = computed(() => this._selectedLocation());
 
-  setDataFetchingMethod(method: DataFetchingMethod): void {
+  public setDataFetchingMethod(method: DataFetchingMethod): void {
     this._dataFetchingMethod.set(method);
-    this.clearWeatherData();
+    this._clearWeatherData();
   }
 
-  setSelectedLocation(location: { lat: number; lon: number } | null): void {
+  public setSelectedLocation(location: { lat: number; lon: number } | null): void {
     this._selectedLocation.set(location);
   }
 
-  private clearWeatherData(): void {
-    this.weatherService.clearAll();
-    this.weatherResourceService.clearAll();
-    this.weatherRxJSService.clearAll();
+  private _clearWeatherData(): void {
+    this._weatherService.clearAll();
+    this._weatherResourceService.clearAll();
+    this._weatherRxJSService.clearAll();
   }
 }
