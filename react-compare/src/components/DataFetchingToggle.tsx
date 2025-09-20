@@ -15,7 +15,9 @@ export const DataFetchingToggle = () => {
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         display: 'flex',
         gap: '8px',
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex: 1000,
+        border: '2px solid #0984e3'
       }}
     >
       <span style={{ fontSize: '14px', fontWeight: '500' }}>
