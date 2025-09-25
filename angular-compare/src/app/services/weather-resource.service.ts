@@ -17,7 +17,7 @@ export class WeatherResourceService {
 
   private readonly _weatherResource = httpResource<WeatherData>(() => {
     const location = this._locationResource.value();
-    return location ? location.properties.forecast : undefined;
+    return location ? { url: location.properties.forecast } : undefined;
   });
 
   public readonly location = computed(() => {

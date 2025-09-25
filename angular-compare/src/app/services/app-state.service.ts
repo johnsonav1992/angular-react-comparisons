@@ -1,5 +1,4 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { WeatherService } from './weather.service';
 import { WeatherResourceService } from './weather-resource.service';
 import { WeatherRxJSService } from './weather-rxjs.service';
 
@@ -9,7 +8,6 @@ export type DataFetchingMethod = 'rxjs' | 'resource';
   providedIn: 'root'
 })
 export class AppStateService {
-  private readonly _weatherService = inject(WeatherService);
   private readonly _weatherResourceService = inject(WeatherResourceService);
   private readonly _weatherRxJSService = inject(WeatherRxJSService);
 
@@ -29,7 +27,6 @@ export class AppStateService {
   }
 
   private _clearWeatherData(): void {
-    this._weatherService.clearAll();
     this._weatherResourceService.clearAll();
     this._weatherRxJSService.clearAll();
   }

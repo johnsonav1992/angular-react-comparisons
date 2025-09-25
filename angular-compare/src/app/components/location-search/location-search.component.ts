@@ -1,6 +1,5 @@
 import { Component, signal, inject, computed } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { WeatherService } from '../../services/weather.service';
 import { WeatherResourceService } from '../../services/weather-resource.service';
 import { WeatherRxJSService } from '../../services/weather-rxjs.service';
 import { AppStateService } from '../../services/app-state.service';
@@ -10,7 +9,6 @@ import { AppStateService } from '../../services/app-state.service';
   templateUrl: './location-search.component.html'
 })
 export class LocationSearchComponent {
-  private readonly _weatherService = inject(WeatherService);
   private readonly _weatherResourceService = inject(WeatherResourceService);
   private readonly _weatherRxJSService = inject(WeatherRxJSService);
   private readonly _appState = inject(AppStateService);
@@ -40,7 +38,6 @@ export class LocationSearchComponent {
       .map((c) => parseFloat(c.trim()));
     if (coords.length === 2 && !coords.some(isNaN)) {
       // Clear previous data and start fresh search
-      this._weatherService.clearAll();
       this._weatherResourceService.clearAll();
       this._weatherRxJSService.clearAll();
 
