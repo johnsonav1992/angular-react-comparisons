@@ -1,7 +1,8 @@
 import { useAppStore } from '../stores/appStore';
 
 export const DataFetchingToggle = () => {
-  const { dataFetchingMethod, setDataFetchingMethod } = useAppStore();
+  const dataFetchingMethod = useAppStore(state => state.dataFetchingMethod);
+  const setDataFetchingMethod = useAppStore(state => state.setDataFetchingMethod);
 
   return (
     <div

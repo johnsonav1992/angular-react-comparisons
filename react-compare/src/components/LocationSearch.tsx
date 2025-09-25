@@ -9,13 +9,15 @@ interface LocationSearchProps {
 
 export const LocationSearch = ({ onRefetch }: LocationSearchProps) => {
   const [searchQuery, setSearchQuery] = useState('32.7767,-96.7970');
-  const { 
-    dataFetchingMethod, 
-    setSelectedLocation,
-    selectedLocation 
-  } = useAppStore();
 
-  const { loading, error } = useWeatherDataStore();
+  const dataFetchingMethod = useAppStore(state => state.dataFetchingMethod);
+  const setSelectedLocation = useAppStore(state => state.setSelectedLocation);
+  const selectedLocation = useAppStore(state => state.selectedLocation);
+
+  const loading = useWeatherDataStore(state => state.loading);
+  const error = useWeatherDataStore(state => state.error);
+  const clearWeatherData = useWeatherDataStore(state => state.clearWeatherData);
+
   const { fetchWeather } = useWeatherVanilla();
 
   const handleSearch = () => {
@@ -24,7 +26,6 @@ export const LocationSearch = ({ onRefetch }: LocationSearchProps) => {
     if (coords.length === 2 && !coords.some(isNaN)) {
       const [lat, lon] = coords;
 
-      const { clearWeatherData } = useWeatherDataStore.getState();
       clearWeatherData();
 
       if (dataFetchingMethod === 'vanilla') {
@@ -40,9 +41,7 @@ export const LocationSearch = ({ onRefetch }: LocationSearchProps) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
+    if (e.key === 'Enter') handleSearch();
   };
 
   return (
