@@ -10,9 +10,10 @@ export const CurrentWeather = ({ data }: CurrentWeatherProps) => {
 
   if (!data.currentWeather) return null;
 
-  const displayTemp = showCelsius ?
-    Math.round((data.currentWeather.temperature - 32) * 5/9) :
-    data.currentWeather.temperature;
+  const displayTemp = showCelsius 
+    ? Math.round((data.currentWeather.temperature - 32) * 5/9) 
+    : data.currentWeather.temperature;
+
   const displayUnit = showCelsius ? 'C' : 'F';
 
   return (
@@ -22,7 +23,7 @@ export const CurrentWeather = ({ data }: CurrentWeatherProps) => {
         {displayTemp}°{displayUnit}
         <button
           className="temp-toggle"
-          onClick={() => setShowCelsius(!showCelsius)}
+          onClick={() => setShowCelsius(prevUnit => !prevUnit)}
           title={`Switch to ${showCelsius ? 'Fahrenheit' : 'Celsius'}`}
         >
           °{showCelsius ? 'F' : 'C'}

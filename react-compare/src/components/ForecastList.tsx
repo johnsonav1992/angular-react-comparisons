@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { WeatherCard } from './WeatherCard';
 import { ForecastFilter } from './ForecastFilter';
 import type { WeatherState, WeatherForecast } from '../types/weather';
 
