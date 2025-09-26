@@ -7,6 +7,9 @@ import { WeatherResourceService } from '../../services/weather-resource.service'
 })
 export class CurrentWeatherComponent {
   private readonly _weatherResourceService = inject(WeatherResourceService);
+
+  public oldSkoolShowCelsius = false;
+
   public readonly showCelsius = signal(false);
 
   public readonly location = computed(() => this._weatherResourceService.location());
@@ -25,5 +28,15 @@ export class CurrentWeatherComponent {
 
   toggleTempUnit() {
     this.showCelsius.update((prevUnit) => !prevUnit);
+
+    /*
+      properties on the component used to just be set directly, like so:
+
+      this.showCelsius = true;
+
+      And Zone.js would pick up on the change and update the UI.
+
+      Now we use signals to manage reactivity explicitly and much more efficiently.
+    */
   }
 }

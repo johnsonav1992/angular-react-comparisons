@@ -1,4 +1,4 @@
-import { Component, inject, computed, OnInit } from '@angular/core';
+import { Component, inject, computed, OnInit, effect, untracked } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { LocationSearchComponent } from './components/location-search/location-search.component';
 import { CurrentWeatherComponent } from './components/current-weather/current-weather.component';
@@ -37,6 +37,22 @@ export class AppComponent implements OnInit {
       'color: #10b981; font-weight: normal;',
       'color: #3b82f6; font-size: 18px;'
     )
+
+    effect(() => {
+      // can also run logic in an effect (like a useEffect)
+      // to react to signal changes. As you can imagine,
+      // this should be used sparingly!
+      console.log(`Data fetching method is now: ${this._appState.dataFetchingMethod()}`);
+
+      // Angular has a handy way of explicitly ignoring
+      // signal tracking within a block of code.
+      // This is useful for debugging or if you
+      // need to read a signal but don't want to
+      // re-run the effect when it changes.
+      untracked(() => {
+        console.log(`(untracked) Loading state is: ${this.loading()}`);
+      })
+    })
   }
 
   public readonly dataFetchingMethod = computed(() => this._appState.dataFetchingMethod());
