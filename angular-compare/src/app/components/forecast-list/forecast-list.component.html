@@ -1,10 +1,12 @@
 @if (forecast().length > 0) {
   <div class="forecast-section">
-    <h3 class="forecast-title">7-Day Forecast</h3>
-    <div class="forecast-grid">
-      @for (day of forecast(); track day.number) {
-        <app-weather-card [forecast]="day" />
-      }
+    <div class="forecast-header">
+      <h3 class="forecast-title">7-Day Forecast</h3>
+      <div class="forecast-info">Showing {{ displayCount() }} days</div>
     </div>
+    <app-forecast-filter
+      [forecast]="forecast()"
+      (filterChange)="onFilterChange($event)"
+    />
   </div>
 }

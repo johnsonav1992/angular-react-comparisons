@@ -2,9 +2,14 @@
   <div class="current-weather">
     <h2 class="location-name">{{ location() }}</h2>
     <div class="current-temp">
-      {{ currentWeather()!.temperature }}°{{
-        currentWeather()!.temperatureUnit
-      }}
+      {{ displayTemp() }}°{{ displayUnit() }}
+      <button
+        class="temp-toggle"
+        (click)="toggleTempUnit()"
+        [title]="'Switch to ' + (showCelsius() ? 'Fahrenheit' : 'Celsius')"
+      >
+        °{{ showCelsius() ? 'F' : 'C' }}
+      </button>
     </div>
     <div class="weather-description">
       {{ currentWeather()!.shortForecast }}

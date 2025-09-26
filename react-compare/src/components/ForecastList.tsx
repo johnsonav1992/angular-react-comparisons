@@ -1,21 +1,31 @@
+import { useState } from 'react';
 import { WeatherCard } from './WeatherCard';
-import type { WeatherState } from '../types/weather';
+import { ForecastFilter } from './ForecastFilter';
+import type { WeatherState, WeatherForecast } from '../types/weather';
 
 interface ForecastListProps {
   data: WeatherState;
 }
 
 export const ForecastList = ({ data }: ForecastListProps) => {
+  const [displayCount, setDisplayCount] = useState(0);
+
   if (data.forecast.length === 0) return null;
+
+  const handleFilterChange = (filteredForecast: WeatherForecast[]) => {
+    setDisplayCount(filteredForecast.length);
+  };
 
   return (
     <div className="forecast-section">
-      <h3 className="forecast-title">7-Day Forecast</h3>
-      <div className="forecast-grid">
-        {data.forecast.map((day) => (
-          <WeatherCard key={day.number} forecast={day} />
-        ))}
+      <div className="forecast-header">
+        <h3 className="forecast-title">7-Day Forecast</h3>
+        <div className="forecast-info">Showing {displayCount} days</div>
       </div>
+      <ForecastFilter
+        forecast={data.forecast}
+        onFilterChange={handleFilterChange}
+      />
     </div>
   );
 };

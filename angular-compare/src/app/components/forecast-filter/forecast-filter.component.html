@@ -1,0 +1,15 @@
+<label class="filter-toggle">
+  <input
+    type="checkbox"
+    [checked]="showOnlyRainy()"
+    (change)="toggleFilter($event)"
+  />
+  Show only rainy days
+</label>
+<div class="forecast-grid">
+@for (day of filteredForecast(); track day.number) {
+  <app-weather-card [forecast]="day" />
+}
+@if (filteredForecast().length === 0 && showOnlyRainy()) {
+  <div class="no-results">No rainy days in the forecast! ☀️</div>
+}

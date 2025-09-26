@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { WeatherState } from '../types/weather';
 
 interface CurrentWeatherProps {
@@ -5,13 +6,27 @@ interface CurrentWeatherProps {
 }
 
 export const CurrentWeather = ({ data }: CurrentWeatherProps) => {
+  const [showCelsius, setShowCelsius] = useState(false);
+
   if (!data.currentWeather) return null;
+
+  const displayTemp = showCelsius ?
+    Math.round((data.currentWeather.temperature - 32) * 5/9) :
+    data.currentWeather.temperature;
+  const displayUnit = showCelsius ? 'C' : 'F';
 
   return (
     <div className="current-weather">
       <h2 className="location-name">{data.location}</h2>
       <div className="current-temp">
-        {data.currentWeather.temperature}°{data.currentWeather.temperatureUnit}
+        {displayTemp}°{displayUnit}
+        <button
+          className="temp-toggle"
+          onClick={() => setShowCelsius(!showCelsius)}
+          title={`Switch to ${showCelsius ? 'Fahrenheit' : 'Celsius'}`}
+        >
+          °{showCelsius ? 'F' : 'C'}
+        </button>
       </div>
       <div className="weather-description">
         {data.currentWeather.shortForecast}

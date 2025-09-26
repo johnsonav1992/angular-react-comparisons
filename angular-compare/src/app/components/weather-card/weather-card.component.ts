@@ -8,8 +8,7 @@ import { WeatherForecast } from '../../types/weather';
 export class WeatherCardComponent {
   // Many apps will still use this input approach, but
   // input signals are safer and easier to use!
-  @Input()
-  public forecastOldSkoolInput!: WeatherForecast;
+  @Input() public forecastOldSkoolInput!: WeatherForecast;
 
   public readonly forecast = input.required<WeatherForecast>();
 }

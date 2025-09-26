@@ -198,6 +198,27 @@ body {
   letter-spacing: -0.03em;
 }
 
+.temp-toggle {
+  background: var(--neutral-100);
+  border: 1px solid var(--neutral-300);
+  color: var(--neutral-500);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 0.75rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  vertical-align: middle;
+}
+
+.temp-toggle:hover {
+  background: var(--primary-50);
+  border-color: var(--primary-300);
+  color: var(--primary-600);
+  transform: translateY(-1px);
+}
+
 .weather-description {
   font-size: 1.25rem;
   color: var(--neutral-600);
@@ -263,18 +284,63 @@ body {
   background: linear-gradient(90deg, var(--primary-500) 0%, var(--primary-600) 100%);
 }
 
+.forecast-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
 .forecast-title {
   font-size: 1.5rem;
   color: var(--neutral-800);
-  margin-bottom: 2rem;
   font-weight: 700;
   letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.forecast-info {
+  font-size: 0.9rem;
+  color: var(--neutral-500);
+  font-weight: 500;
+}
+
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--neutral-600);
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.filter-toggle input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--primary-500);
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  color: var(--neutral-700);
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--primary-200);
+  box-shadow: var(--shadow-sm);
 }
 
 .forecast-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1.25rem;
+  min-height: 350px;
+  align-content: start;
 }
 
 .weather-card {
@@ -286,6 +352,7 @@ body {
   border: 1px solid var(--neutral-200);
   position: relative;
   overflow: hidden;
+  height: fit-content;
 }
 
 .weather-card::before {

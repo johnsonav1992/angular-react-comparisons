@@ -7,6 +7,7 @@ import { CurrentWeather } from './components/CurrentWeather';
 import { ForecastList } from './components/ForecastList';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { DataFetchingToggle } from './components/DataFetchingToggle';
+import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,15 @@ function WeatherApp() {
   );
 
   const data = dataFetchingMethod === 'vanilla' ? vanillaData : queryData;
+
+  useEffect(() => {
+    console.log(
+      '%c⚛️ React Weather Dashboard %cis up and running! %c☀️',
+      'color: #3b82f6; font-weight: bold; font-size: 16px;',
+      'color: #10b981; font-weight: normal;',
+      'color: #f59e0b; font-size: 18px;'
+    )
+  }, [])
 
   return (
     <div className="weather-app">

@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { LocationSearchComponent } from './components/location-search/location-search.component';
 import { CurrentWeatherComponent } from './components/current-weather/current-weather.component';
@@ -25,10 +25,19 @@ import { AppStateService } from './services/app-state.service';
   ],
   templateUrl: './app.component.html',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private readonly _weatherResourceService = inject(WeatherResourceService);
   public readonly weatherRxJSService = inject(WeatherRxJSService);
   private readonly _appState = inject(AppStateService);
+
+  public ngOnInit() {
+    console.log(
+      '%c🅰️ Angular Weather Dashboard %cis up and running! %c🌦️',
+      'color: #dd0031; font-weight: bold; font-size: 16px;',
+      'color: #10b981; font-weight: normal;',
+      'color: #3b82f6; font-size: 18px;'
+    )
+  }
 
   public readonly dataFetchingMethod = computed(() => this._appState.dataFetchingMethod());
 
